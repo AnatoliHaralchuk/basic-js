@@ -23,9 +23,32 @@ const { NotImplementedError } = require('../extensions/index.js');
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function minesweeper(matrix) {
+  const saper = matrix.map(e => e.slice())
+
+  for (let i=0; i<saper.length; i++){
+    for (let j=0;j<saper[i].length;j++){
+      saper[i][j] = 0 
+    }
+  }
+  for (let i=0; i<matrix.length; i++){
+    for (let j=0;j<matrix[i].length;j++){
+      if (matrix[i][j] === true){
+        if (i === 0){saper[i+1][j] += 1}
+          else if (i === (i.length - 1)){saper[i-1][j] += 1}
+          else {saper[i+1][j] += 1;saper[i-1][j] += 1}
+        if (j === 0){saper[i][j+1] += 1}
+          else if (j === (j.length -1)){saper[i][j-1] += 1}
+          else {saper[i][j+1] += 1;saper[i][j-1] += 1}
+        if ((j === 0)&&(i === 0)){saper[i+1][j+1] += 1}
+        else if ((j === (j.length -1))&&(i === (i.length -1))){saper[i-1][j-1] += 1}
+        else if ((j === 0)&&(i === (i.length -1))){saper[i-1][j+1] += 1}
+        else if ((j === (j.length -1))&&(i === 0)){saper[i+1][j-1] += 1}
+        else {saper[i+1][j+1] += 1;saper[i-1][j-1] += 1;saper[i-1][j+1] += 1;saper[i+1][j-1] += 1}
+      }
+    }
+  } 
+  return saper
 }
 
 module.exports = {
